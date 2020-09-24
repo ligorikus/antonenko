@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class CategoryOption extends Model
 {
+    public $fillable = [
+        'title', 'type'
+    ];
+
     public function category()
     {
         return $this->belongsTo(Category::class);

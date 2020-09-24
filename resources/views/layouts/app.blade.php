@@ -34,13 +34,12 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         @auth
-                            @if (\Auth::user()->roles->contains('name', 'admin'))
-                                @foreach (Menu::get('AdminNavBar')->roots() as $item)
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{ $item->url() }}">{{ $item->title }}</a>
-                                    </li>
-                                @endforeach
-                            @endif
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('categories.index')}}">Категории</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('products.index')}}">Продукты</a>
+                            </li>
                         @endauth
                     </ul>
 

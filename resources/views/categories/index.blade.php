@@ -1,25 +1,27 @@
 @extends('layouts.app')
 @section('content')
     <div class="container">
-        <a href="{{route('users.create')}}" class="btn btn-primary">{{__('users.create')}}</a>
+        <a href="{{route('categories.create')}}" class="btn btn-primary">Создать категорию</a>
         <table class="table">
             <thead>
                 <tr>
                     <td>#</td>
-                    <td>{{__('users.name')}}</td>
-                    <td>{{__('users.email')}}</td>
+                    <td>Название</td>
                     <td></td>
                 </tr>
             </thead>
             <tbody>
-            @foreach($users as $user)
+            @foreach($categories as $category)
                 <tr>
-                    <td>{{$user->id}}</td>
-                    <td>{{$user->name}}</td>
-                    <td>{{$user->email}}</td>
+                    <td>{{$category->id}}</td>
+                    <td>{{$category->name}}</td>
                     <td>
-                        {{--<a href="{{route('users.edit', compact('user'))}}" class="btn btn-warning">{{__('controls.update')}}</a>--}}
-                        {{--<a href="{{route('users.delete', compact('user'))}}" class="btn btn-danger">{{__('controls.delete')}}</a>--}}
+                        <form action="{{route('categories.destroy', compact('category'))}}" method="post" class="form-group row">
+                            @method('delete')
+                            @csrf
+                            <a href="{{route('categories.edit', compact('category'))}}" class="btn btn-warning col-md-2">Обновить</a>
+                            <input type="submit" class="btn btn-danger col-md-2" value="Удалить">
+                        </form>
                     </td>
                 </tr>
             @endforeach

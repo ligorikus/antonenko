@@ -1,25 +1,27 @@
 @extends('layouts.app')
 @section('content')
     <div class="container">
-        <a href="{{route('users.create')}}" class="btn btn-primary">{{__('users.create')}}</a>
+        <a href="{{route('products.create')}}" class="btn btn-primary">Создать продукт</a>
         <table class="table">
             <thead>
                 <tr>
                     <td>#</td>
-                    <td>{{__('users.name')}}</td>
-                    <td>{{__('users.email')}}</td>
+                    <td>Название</td>
                     <td></td>
                 </tr>
             </thead>
             <tbody>
-            @foreach($users as $user)
+            @foreach($products as $product)
                 <tr>
-                    <td>{{$user->id}}</td>
-                    <td>{{$user->name}}</td>
-                    <td>{{$user->email}}</td>
+                    <td>{{$product->id}}</td>
+                    <td>{{$product->name}}</td>
                     <td>
-                        {{--<a href="{{route('users.edit', compact('user'))}}" class="btn btn-warning">{{__('controls.update')}}</a>--}}
-                        {{--<a href="{{route('users.delete', compact('user'))}}" class="btn btn-danger">{{__('controls.delete')}}</a>--}}
+                        <form action="{{route('products.destroy', compact('product'))}}" method="post" class="form-group row">
+                            @method('delete')
+                            @csrf
+                            <a href="{{route('products.edit', compact('product'))}}" class="btn btn-warning col-md-2">Обновить</a>
+                            <input type="submit" class="btn btn-danger col-md-2" value="Удалить">
+                        </form>
                     </td>
                 </tr>
             @endforeach
