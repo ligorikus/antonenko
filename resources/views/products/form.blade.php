@@ -3,6 +3,7 @@
     <h1>{{ !isset($product) ? "Создать продукт" : "Обновить продукт"}}</h1>
     <product-form
         class="container"
-        :category="{{$product ?? '{}'}}"
+        :product="{{$product ?? 'null'}}"
+        :categories="{{json_encode($categories)}}"
     ></product-form>
 @endsection

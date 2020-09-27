@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
+    public $fillable = [
+        'name', 'description', 'category_id'
+    ];
+
     public function category()
     {
         return $this->belongsTo(Category::class);
@@ -13,6 +17,6 @@ class Product extends Model
 
     public function category_options()
     {
-        return $this->belongsToMany(CategoryOption::class, 'product_options', 'product_id', 'category_option_id');
+        return $this->belongsToMany(CategoryOption::class, 'product_options', 'product_id', 'category_option_id')->withPivot(['value']);
     }
 }

@@ -14,7 +14,7 @@
                         <input type="text" v-model="options[key].title" class="form-control">
                     </div>
                     <div class="col-md-5">
-                        <select class="form-group" v-model="options[key].type">
+                        <select v-model="options[key].type" class="form-control">
                             <option value="string">Строка</option>
                             <option value="numeric">Число</option>
                             <option value="boolean">Переключатель</option>

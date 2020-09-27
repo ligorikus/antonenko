@@ -3,6 +3,6 @@
     <h1>{{ !isset($category) ? "Создать категорию" : "Обновить категорию"}}</h1>
     <category-form
         class="container"
-        :category="{{$category ?? '{}'}}"
+        :category="{{$category ?? 'null'}}"
     ></category-form>
 @endsection
