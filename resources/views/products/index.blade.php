@@ -7,6 +7,7 @@
                 <tr>
                     <td>#</td>
                     <td>Название</td>
+                    <td>Категория</td>
                     <td></td>
                 </tr>
             </thead>
@@ -15,6 +16,7 @@
                 <tr>
                     <td>{{$product->id}}</td>
                     <td>{{$product->name}}</td>
+                    <td>{{$product->category->name}}</td>
                     <td>
                         <form action="{{route('products.destroy', compact('product'))}}" method="post" class="form-group row">
                             @method('delete')

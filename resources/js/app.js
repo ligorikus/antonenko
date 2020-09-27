@@ -27,6 +27,8 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 Vue.component('category-form', require('./components/CategoryForm.vue').default);
 Vue.component('product-form', require('./components/ProductForm').default);
 
+Vue.component('dashboard', require('./components/Dashboard').default);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

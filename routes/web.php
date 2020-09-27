@@ -14,7 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $categories = \App\Category::with('options')->get();
+    return view('welcome', compact('categories'));
 });
 
 Auth::routes();
