@@ -26,7 +26,7 @@
         </div>
         <div class="col-md-9">
             <div class="row">
-                <a href="https://www.omgtu.ru/general_information/faculties/faculty_of_information_technology_and_computer_systems/department_of_automated_systems_of_information_processing_and_management">
+                <a target="_blank" href="https://www.omgtu.ru/general_information/faculties/faculty_of_information_technology_and_computer_systems/department_of_automated_systems_of_information_processing_and_management">
                     <img class="col-md-6" src="https://omgtu.ru/general_information/files/logo%20OmGTU%20wb%20gor.png" alt="Кафедра АСОИУ">
                 </a>
             </div>
