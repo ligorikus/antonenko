@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <div class="container">
-        <a href="{{route('products.create')}}" class="btn btn-primary">Создать продукт</a>
+        <a href="{{route('products.create')}}" class="btn btn-primary">Создать товар</a>
         <table class="table">
             <thead>
                 <tr>
