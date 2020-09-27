@@ -21,5 +21,48 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::resource('categories', 'CategoryController');
-Route::resource('products', 'ProductController');
+Route::group(['middleware' => ['auth']], function () {
+    Route::resource('categories', 'CategoryController');
+    Route::resource('products', 'ProductController');
+});
+
+Route::get('ajax/products', function (\Illuminate\Http\Request $request) {
+    $products = \Illuminate\Support\Facades\DB::table('products');
+    $filter = $request->filter;
+    if (isset($filter['name'])) {
+        $products->where('products.name', 'ilike', '%'.$filter['name'].'%');
+    }
+    if (isset($filter['category_id'])) {
+        $products->where('category_id', (int)$filter['category_id']);
+    }
+    if (isset($filter['options'])) {
+        $products->leftJoin('product_options', 'product_options.product_id', '=', 'products.id');
+
+        $products->where(function ($query) use ($filter) {
+            foreach ($filter['options'] as $key => $option) {
+                $query->orWhere('product_options.category_option_id', (int)$key);
+                if (is_array($option)) {
+                    $query
+                        ->where('value', '>=', (int)$option[0])
+                        ->where('value', '<=', (int)$option[1]);
+                } else {
+                    $query
+                        ->where('value', (bool)$option);
+                }
+            }
+        });
+    }
+    $products->leftJoin('categories', 'categories.id', '=', 'products.category_id');
+    $products->select([
+        'products.id',
+        'products.name',
+        'products.description',
+        'categories.name as category_name'
+    ]);
+    return $products->paginate(6);
+});
+
+Route::get('products/{product}/show', function (\App\Product $product) {
+    $product->load('category_options');
+    return view('products.show', compact('product'));
+});

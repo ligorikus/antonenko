@@ -1,10 +1,8 @@
 @extends('layouts.app')
 @section('content')
     <div class="container">
-        <div class="row">
-            <dashboard class="col"
-                :categories="{{json_encode($categories)}}"
-            ></dashboard>
-        </div>
+        <dashboard class="row"
+            :categories="{{json_encode($categories)}}"
+        ></dashboard>
     </div>
 @endsection
