@@ -90,6 +90,7 @@
                         .put(this.sendRoute, {
                             name: this.name,
                             description: this.description,
+                            image: this.image,
                             category_id: this.selected_category.id,
                             options: this.options
                         })

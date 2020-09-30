@@ -96,6 +96,7 @@ class ProductController extends Controller
         $product->category_id = $request->category_id;
         $product->name = $request->name;
         $product->description = $request->description;
+        $product->image = $request->image;
         $product->save();
 
         $options = collect($request->options);
