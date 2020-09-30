@@ -38,7 +38,9 @@
                                 {{product.name}}
                                 <span class="float-right">{{product.category_name}}</span>
                             </div>
-                            <div class="card-text">{{product.description}}</div>
+                            <div class="card-text">
+                                <img class="card-img" :src="product.image" alt="" v-if="product.image">
+                            </div>
                             <a class="btn btn-primary" :href="'/products/'+product.id+'/show'">Посмотреть</a>
                         </div>
                     </div>

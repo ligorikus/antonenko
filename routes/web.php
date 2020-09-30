@@ -27,7 +27,7 @@ Route::group(['middleware' => ['auth']], function () {
 });
 
 Route::get('ajax/products', function (\Illuminate\Http\Request $request) {
-    $products = \Illuminate\Support\Facades\DB::table('products');
+    $products = \Illuminate\Support\Facades\DB::table('products')->distinct();
     $filter = $request->filter;
     if (isset($filter['name'])) {
         $products->where('products.name', 'ilike', '%'.$filter['name'].'%');
@@ -37,7 +37,6 @@ Route::get('ajax/products', function (\Illuminate\Http\Request $request) {
     }
     if (isset($filter['options'])) {
         $products->leftJoin('product_options', 'product_options.product_id', '=', 'products.id');
-
         $products->where(function ($query) use ($filter) {
             foreach ($filter['options'] as $key => $option) {
                 $query->orWhere('product_options.category_option_id', (int)$key);
@@ -57,6 +56,7 @@ Route::get('ajax/products', function (\Illuminate\Http\Request $request) {
         'products.id',
         'products.name',
         'products.description',
+        'products.image',
         'categories.name as category_name'
     ]);
     return $products->paginate(6);
@@ -65,4 +65,21 @@ Route::get('ajax/products', function (\Illuminate\Http\Request $request) {
 Route::get('products/{product}/show', function (\App\Product $product) {
     $product->load('category_options');
     return view('products.show', compact('product'));
+});
+
+Route::post('products/img/product', function (\Illuminate\Http\Request $request) {
+    $file = $request->file('image');
+    if ($file) {
+        $path = $file->store('public/images');
+        if ($path) {
+            return response()->json([
+                'result' => true,
+                'location' => env('APP_URL').\Illuminate\Support\Facades\Storage::url($path),
+            ]);
+        }
+
+        return response()->json(['result' => false]);
+    }
+
+    return response()->json(['result' => false]);
 });

@@ -13,6 +13,11 @@
             </div>
         </div>
         <div class="row">
+            <div class="col-md-6">
+                <input type="file" @change='upload_image' name="image">
+            </div>
+        </div>
+        <div class="row">
             <div class="col-md-6 form-group">
                 <select v-model="selected_category" class="form-control" @change="selectCategory" :disabled="product">
                     <option
@@ -62,7 +67,8 @@
                 description: '',
                 is_new: true,
                 selected_category: {},
-                options: {}
+                options: {},
+                image: ''
             }
         },
         methods: {
@@ -72,6 +78,7 @@
                         .post(this.sendRoute, {
                             name: this.name,
                             description: this.description,
+                            image: this.image,
                             category_id: this.selected_category.id,
                             options: this.options
                         })
@@ -91,6 +98,22 @@
                         });
                 }
 
+            },
+            upload_image(e){
+                let file = e.target.files[0];
+                console.log(e.target.files[0]);
+
+                let data = new FormData();
+                data.append('image', file);
+
+                if(file['size'] < 2111775)
+                {
+                    this.$http.post('img/product', data).then((response) => {
+                        this.image = response.data.location;
+                    });
+                }else{
+                    alert('File size can not be bigger than 2 MB')
+                }
             },
             selectCategory: function () {
                 var self = this;
